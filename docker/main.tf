@@ -4,9 +4,10 @@ provider "docker" {
 }
 
 # Create a container
-resource "docker_container" "docker-dev-nginx" {
+resource "docker_container" "docker_dev_nginx" {
   image = "${docker_image.nginx.latest}"
-  name = "docker-dev-nginx-instance"
+  name  = "docker-dev-nginx"
+
   ports {
     internal = 80
     external = 80
@@ -16,4 +17,3 @@ resource "docker_container" "docker-dev-nginx" {
 resource "docker_image" "nginx" {
   name = "nginx:latest"
 }
-
