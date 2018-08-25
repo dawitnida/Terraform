@@ -69,6 +69,7 @@ fabric.properties
 # Compiled files
 *.tfstate
 *.tfstate.*
+*.plan
 
 # Module directory
 .terraform/
