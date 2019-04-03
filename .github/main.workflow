@@ -62,31 +62,3 @@ action "terraform-plan-docker" {
     TF_ACTION_WORKSPACE = "default"
   }
 }
-
-workflow "terraform-gcp" {
-  resolves = "terraform-plan-gcp"
-  on = "pull_request"
-}
-
-action "terraform-fmt-gcp" {
-  uses = "hashicorp/terraform-github-actions/fmt@<latest tag>"
-  needs = "filter-to-pr-open-synced"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "gcp"
-  }
-}
-
-workflow "terraform-aws/servers" {
-  resolves = "terraform-plan-aws/servers"
-  on = "pull_request"
-}
-
-action "terraform-fmt-aws/servers" {
-  uses = "hashicorp/terraform-github-actions/fmt@<latest tag>"
-  needs = "filter-to-pr-open-synced"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "aws/servers"
-  }
-}
