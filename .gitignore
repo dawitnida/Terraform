@@ -76,7 +76,7 @@ fabric.properties
 .terraform/
 
 # .tfvars files
-*.tfvars
+# *.tfvars
 
 
 # End of https://www.gitignore.io/api/phpstorm,terraform
