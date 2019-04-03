@@ -61,4 +61,9 @@ action "terraform-plan-docker" {
     # If you're using Terraform workspaces, set this to the workspace name.
     TF_ACTION_WORKSPACE = "default"
   }
+     args = [
+     "-refresh=true",
+      "-lock=true",
+      "-var-file=backend.tfvars"
+      ]
 }
