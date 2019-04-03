@@ -42,6 +42,10 @@ action "terraform-validate-docker" {
   env = {
     TF_ACTION_WORKING_DIR = "docker"
   }
+    args = [
+    "-check-variables=true",
+    "-var-file=backend.tfvars"
+    ]
 }
 
 action "terraform-plan-docker" {
@@ -73,33 +77,6 @@ action "terraform-fmt-gcp" {
   }
 }
 
-action "terraform-init-gcp" {
-  uses = "hashicorp/terraform-github-actions/init@<latest tag>"
-  secrets = ["GITHUB_TOKEN"]
-  needs = "terraform-fmt-gcp"
-  env = {
-    TF_ACTION_WORKING_DIR = "gcp"
-  }
-}
-
-action "terraform-validate-gcp" {
-  uses = "hashicorp/terraform-github-actions/validate@<latest tag>"
-  secrets = ["GITHUB_TOKEN"]
-  needs = "terraform-init-gcp"
-  env = {
-    TF_ACTION_WORKING_DIR = "gcp"
-  }
-}
-
-action "terraform-plan-gcp" {
-  uses = "hashicorp/terraform-github-actions/plan@<latest tag>"
-  needs = "terraform-validate-gcp"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "gcp"
-  }
-}
-
 workflow "terraform-aws/servers" {
   resolves = "terraform-plan-aws/servers"
   on = "pull_request"
@@ -108,33 +85,6 @@ workflow "terraform-aws/servers" {
 action "terraform-fmt-aws/servers" {
   uses = "hashicorp/terraform-github-actions/fmt@<latest tag>"
   needs = "filter-to-pr-open-synced"
-  secrets = ["GITHUB_TOKEN"]
-  env = {
-    TF_ACTION_WORKING_DIR = "aws/servers"
-  }
-}
-
-action "terraform-init-aws/servers" {
-  uses = "hashicorp/terraform-github-actions/init@<latest tag>"
-  secrets = ["GITHUB_TOKEN"]
-  needs = "terraform-fmt-aws/servers"
-  env = {
-    TF_ACTION_WORKING_DIR = "aws/servers"
-  }
-}
-
-action "terraform-validate-aws/servers" {
-  uses = "hashicorp/terraform-github-actions/validate@<latest tag>"
-  secrets = ["GITHUB_TOKEN"]
-  needs = "terraform-init-aws/servers"
-  env = {
-    TF_ACTION_WORKING_DIR = "aws/servers"
-  }
-}
-
-action "terraform-plan-aws/servers" {
-  uses = "hashicorp/terraform-github-actions/plan@<latest tag>"
-  needs = "terraform-validate-aws/servers"
   secrets = ["GITHUB_TOKEN"]
   env = {
     TF_ACTION_WORKING_DIR = "aws/servers"
