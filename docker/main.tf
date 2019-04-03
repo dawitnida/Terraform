@@ -10,7 +10,7 @@ provider "docker" {
 # Create a container
 resource "docker_container" "docker_dev_nginx" {
   image = "${docker_image.nginx.latest}"
-  name = "dev-nginx-doc"
+  name  = "dev-nginx-doc"
 
   ports {
     internal = 8082
@@ -28,11 +28,10 @@ resource "null_resource" "rand-number" {
   triggers {
     trigger_timestamp = "${timestamp()}"
   }
-
 }
 
 resource "random_string" "random-string" {
-  length = 32
-  special = true
+  length           = 32
+  special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
