@@ -30,6 +30,7 @@ action "terraform-init-docker" {
   env = {
     TF_ACTION_WORKING_DIR = "docker"
   }
+  args = ["-backend-config="backend.tfvars""]
 }
 
 action "terraform-validate-docker" {
