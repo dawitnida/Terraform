@@ -31,7 +31,7 @@ resource "null_resource" "rand-number" {
 }
 
 resource "random_string" "random-string" {
-  length           = 32
+  length           = 42
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
