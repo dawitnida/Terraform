@@ -1,12 +1,10 @@
-// Variables
-
 variable "aws_profile" {
   type        = "map"
   description = "AWS profile"
 
   default = {
-    stage = "dawitnida"
-    prod  = "superdawit"
+    prod  = "dn-prod"
+    stage = "dn-stage"
   }
 }
 
@@ -14,8 +12,8 @@ variable "aws_region" {
   type = "map"
 
   default = {
-    stage = "eu-west-1"
-    prod  = "us-west-1"
+    eu-west-1 = "eu-west-1"
+    us-east-1 = "us-east-1"
   }
 
   description = "AWS region to launch instances"
