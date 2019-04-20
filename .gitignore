@@ -69,6 +69,7 @@ fabric.properties
 # Compiled files
 *.tfstate
 *.tfstate.*
+.terraform.tfstate.lock.info
 *.plan
 *.tfplan
 
@@ -76,7 +77,6 @@ fabric.properties
 .terraform/
 
 # .tfvars files
-# *.tfvars
-
+*.tfvars
 
 # End of https://www.gitignore.io/api/phpstorm,terraform

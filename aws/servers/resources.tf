@@ -3,13 +3,18 @@ terraform {
   backend "s3" {}
 }
 
+locals {
+  profile = "${terraform.workspace == "prod" ? var.aws_profile["dn-prod"] : var.aws_profile["dn-stage"]}"
+  region  = "${terraform.workspace == "prod" ? var.aws_region["dn-prod"] : var.aws_region["dn-stage"]}"
+}
+
 provider "aws" {
-  profile = "${var.aws_profile["stage"]}"
-  region  = "${var.aws_region["stage"]}"
+  profile = "${local.profile}"
+  region  = "${local.region}"
 }
 
 resource "aws_security_group" "sg_dev_server" {
-  name        = "dev-allow-all"
+  name        = "${terraform.workspace}-allow-all"
   description = "Allow all inbound traffic"
 
   ingress {
@@ -20,7 +25,9 @@ resource "aws_security_group" "sg_dev_server" {
   }
 
   tags {
-    Name = "sg-dev-server"
+    Name    = "sg-dev-server"
+    profile = "${local.profile}"
+    region  = "${local.region}"
   }
 }
 
@@ -38,7 +45,9 @@ resource "aws_instance" "dn_dev_server" {
               EOF
 
   tags {
-    Name = "dev-instance"
-    Type = "staging"
+    Name    = "dev-instance"
+    Type    = "staging"
+    profile = "${local.profile}"
+    region  = "${local.region}"
   }
 }
